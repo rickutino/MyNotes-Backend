@@ -5,9 +5,11 @@ import { migrationsRun } from "./database/sqlite/migrations";
 import { router } from "./routes";
 import { AppError } from "./utils/AppError";
 import { UPLOADS_FOLDER } from "./config/uploads";
+import cors from "cors";
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 app.use("/files", express.static(UPLOADS_FOLDER));
