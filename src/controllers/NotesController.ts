@@ -72,7 +72,7 @@ class NotesController {
       user_id
     });
 
-    const linksInsert = links.map((link: {note_id: number, url: string}) => {
+    const linksInsert = links.map((link: string) => {
       return {
         note_id,
         url: link
@@ -81,13 +81,20 @@ class NotesController {
 
     await knex("links").insert(linksInsert);
 
-    const tagsInsert = tags.map((name: {note_id: number, user_id: number, name: string[]}) => {
+    const newTags = tags.map(async (name: string) => {
+      const existingTag = await knex('tags').where({ name }).first();
+      if (existingTag) {
+        return null
+      }
+
       return {
         note_id,
         user_id,
         name
       }
     });
+    
+    const tagsInsert = newTags.filter((tag: string) => tag !== null);
 
     await knex("tags").insert(tagsInsert);
 
