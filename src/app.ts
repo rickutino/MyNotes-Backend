@@ -1,5 +1,6 @@
 import "express-async-errors";
 import express, { NextFunction, Request, Response } from "express";
+require("dotenv/config");
 
 import { migrationsRun } from "./database/sqlite/migrations";
 import { router } from "./routes";

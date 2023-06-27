@@ -1,6 +1,6 @@
 export default {
   jwt: {
-    secretToken: "31416944e2b7d995fb1e846233f157d5",
+    secretToken: process.env.AUTH_SECERT || "dafault",
     expiresIn: "1d",
   }
 }
